@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DUMB API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Prompt:wght@300;600&display=swap');
+        
+        :root {
+            --bg-color: #222225; 
+            --card-bg: #2a2a2e;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: 'Inter', 'Prompt', sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        .background-shading {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -10%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+
+        .hero-text {
+
+            font-size: clamp(3rem, 14vw, 12rem); 
+            line-height: 0.9;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+            color: transparent;
+        }
+
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .glass-card {
+                padding: 3.5rem;
+                border-radius: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-shading"></div>
+
+    <!-- Nav (Mobile Friendly) -->
+    <nav class="fixed top-0 w-full z-50 p-5 md:p-10 flex justify-between items-center mix-blend-difference">
+        <div class="font-black text-xl tracking-tighter">DUMB</div>
+        <button class="bg-white text-black px-4 py-1.5 md:px-6 md:py-2 rounded-full text-[10px] font-black tracking-widest">
+            Try for Free
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden">
+        <div class="w-full text-center z-10">
+            <div class="overflow-hidden">
+                <h1 id="pure" class="hero-text">DUMB</h1>
+            </div>
+            <div class="overflow-hidden mt-1">
+                <h1 id="motion" class="hero-text text-outline">API</h1>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 flex flex-col items-center opacity-30">
+            <div class="w-[1px] h-10 md:h-20 bg-white"></div>
+        </div>
+    </section>
+
+    <!-- Grid Content (Mobile Stacked, Desktop Grid) -->
+    <section class="max-w-6xl mx-auto px-5 py-20 md:py-32">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 items-stretch">
+            
+            <!-- Card 1 -->
+            <div class="reveal glass-card">
+                <div class="w-full">
+                    <div class="text-[9px] tracking-[0.4em] text-white/30 font-bold mb-6 uppercase">01</div>
+                    <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tighter break-words">FREE</h2>
+                    <p class="text-zinc-400 text-sm md:text-lg leading-relaxed">
+                        Not available
+                    </p>
+                </div>
+                <div class="mt-12 pt-6 border-t border-white/5">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
+                        <span class="text-[10px] text-zinc-500 font-bold uppercase">OFFLINE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="reveal glass-card">
+                <div class="w-full">
+                    <div class="text-[9px] tracking-[0.4em] text-white/30 font-bold mb-6 uppercase">02</div>
+                    <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tighter break-words">VIP</h2>
+                    <p class="text-zinc-400 text-sm md:text-lg leading-relaxed">
+                        Available now
+                    </p>
+                </div>			
+                <div class="mt-12 pt-6 border-t border-white/5">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                        <span class="text-[10px] text-zinc-500 font-bold uppercase">ONLINE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+	<footer class="py-20 text-center px-4">
+		<a href="#" class="text-xl md:text-xl font-black hover:opacity-50 transition-all break-all px-2 uppercase">
+			lrg-phi.vercel.app
+		</a>
+	</footer>
+
+    <script>
+        // Init Smooth Scroll
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Reveal
+        gsap.from("#pure", { y: "100%", duration: 1.2, ease: "expo.out" });
+        gsap.from("#motion", { y: "100%", duration: 1.2, ease: "expo.out", delay: 0.2 });
+
+        // Scroll Parallax (Disabled on Small Screens for performance)
+        if (window.innerWidth > 768) {
+            gsap.to("#pure", { scrollTrigger: { scrub: true }, x: -50, opacity: 0 });
+            gsap.to("#motion", { scrollTrigger: { scrub: true }, x: 50, opacity: 0 });
+        }
+
+        // Card Reveal
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 92%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>
