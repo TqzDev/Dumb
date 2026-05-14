@@ -4,176 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>DUMB API</title>
+    <!-- โหลด Tailwind เป็นแค่ตัวช่วย แต่จะใช้ Style หลักคุมอีกชั้น -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Prompt:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Prompt:wght@400;600&display=swap');
         
-        :root {
-            --bg: #0d0d0e;
-            --card: #161618;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: #fff;
+        /* 1. RESET ป้องกันสไตล์ยุค 90s */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: #000000; 
+            color: #ffffff; 
             font-family: 'Inter', 'Prompt', sans-serif;
-            margin: 0; padding: 0;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%; /* ป้องกัน Browser ขยายตัวอักษรเอง */
         }
+        a { color: inherit !important; text-decoration: none !important; }
 
-        /* นำทาง: หลบ Notch จริงจัง */
-        nav {
+        /* 2. NAVIGATION: แยกซ้ายขวาแบบเด็ดขาด */
+        .fixed-nav {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            padding-top: max(20px, env(safe-area-inset-top));
-            padding-bottom: 20px;
-            padding-left: 24px;
-            padding-right: 24px;
+            height: 70px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, var(--bg) 40%, transparent);
+            padding: 0 24px;
+            z-index: 999;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            padding-top: env(safe-area-inset-top);
         }
 
-        /* Hero: ปรับให้ยืดหยุ่น ไม่บังคับตายตัว */
-        .hero-wrap {
-            padding-top: 160px; /* กันเนื้อหาโดน Nav ทับ */
-            padding-bottom: 80px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* 3. HERO: ตัวหนังสือต้องไม่ซ้อนกัน */
+        .hero-container {
+            padding-top: 150px; /* กันโดน Nav ทับ */
+            padding-bottom: 50px;
             text-align: center;
-            min-height: 70vh; /* ให้เหลือพื้นที่ให้ Card โผล่ขึ้นมาบ้าง */
-        }
-
-        .h-main {
-            font-size: clamp(4rem, 20vw, 12rem);
-            line-height: 0.8;
-            font-weight: 900;
-            letter-spacing: -0.06em;
-        }
-
-        .h-sub {
-            font-size: clamp(4rem, 20vw, 12rem);
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-            color: transparent;
-            line-height: 0.8;
-            font-weight: 900;
-            letter-spacing: -0.06em;
-        }
-
-        /* ส่วนเนื้อหา: ปล่อยไหลตาม Scroll */
-        .content-wrap {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px 100px 24px;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media (min-width: 768px) {
-            .card-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-        }
-
-        .card {
-            background: var(--card);
-            border-radius: 28px;
-            padding: 40px;
-            border: 1px solid rgba(255,255,255,0.05);
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 300px;
+            justify-content: center;
         }
 
-        /* ซ่อน Scrollbar */
-        ::-webkit-scrollbar { display: none; }
+        .title-solid {
+            font-size: clamp(3.5rem, 18vw, 10rem);
+            font-weight: 900;
+            line-height: 1;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .title-outline {
+            font-size: clamp(3.5rem, 18vw, 10rem);
+            font-weight: 900;
+            line-height: 1;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            color: transparent;
+            display: block;
+        }
+
+        /* 4. CARDS: แสดงผลครบถ้วน ไม่จิ๋ว */
+        .main-content {
+            padding: 0 20px 80px 20px;
+            max-width: 600px; /* คุมความกว้างในมือถือให้ดูดีเหมือน PC */
+            margin: 0 auto;
+        }
+
+        .api-card {
+            background: #111111;
+            border: 1px solid #222222;
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 20px;
+            width: 100%;
+            display: block; /* บังคับให้เป็นบล็อกไม่ให้ไหลซ้อนกัน */
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            width: 100%;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+        
+        @media (min-width: 1024px) {
+            .main-content { max-width: 1100px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="font-black text-xl tracking-tighter">DUMB</div>
-        <button class="bg-white text-black px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">
-            Try Free
+    <nav class="fixed-nav">
+        <div style="font-weight: 900; font-size: 22px;">DUMB</div>
+        <button style="background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; font-size: 10px; font-weight: 900; letter-spacing: 1px; border: none;">
+            TRY FREE
         </button>
     </nav>
 
-    <div class="hero-wrap">
-        <h1 class="h-main">DUMB</h1>
-        <h1 class="h-sub">API</h1>
-        <div class="mt-12 opacity-20 text-[9px] tracking-[0.5em] font-bold">SCROLL TO EXPLORE</div>
+    <div class="hero-container">
+        <span class="title-solid">DUMB</span>
+        <span class="title-outline">API</span>
+        <p style="margin-top: 30px; opacity: 0.2; font-size: 9px; letter-spacing: 5px;">SCROLL DOWN</p>
     </div>
 
-    <div class="content-wrap">
-        <div class="card-grid">
-            <!-- FREE -->
-            <div class="card reveal">
-                <div>
-                    <div class="text-[10px] text-white/20 font-bold tracking-[0.3em] uppercase mb-8">Edition 01</div>
-                    <h2 class="text-4xl font-black mb-4 tracking-tighter">FREE</h2>
-                    <p class="text-white/40 text-sm leading-relaxed">
-                        Start building with essential API tools. No credit card required.
-                    </p>
-                </div>
-                <div class="mt-10 pt-6 border-t border-white/5 flex items-center gap-3">
-                    <span class="w-2 h-2 bg-zinc-600 rounded-full"></span>
-                    <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Maintenance</span>
-                </div>
-            </div>
-
-            <!-- VIP -->
-            <div class="card reveal" style="background: #1c1c1f; border-color: rgba(255,255,255,0.1);">
-                <div>
-                    <div class="text-[10px] text-white/40 font-bold tracking-[0.3em] uppercase mb-8">Edition 02</div>
-                    <h2 class="text-4xl font-black mb-4 tracking-tighter">VIP</h2>
-                    <p class="text-white/70 text-sm leading-relaxed">
-                        Unlimited requests and dedicated infrastructure for production.
-                    </p>
-                </div>
-                <div class="mt-10 pt-6 border-t border-white/10 flex items-center gap-3">
-                    <span class="w-2 h-2 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.4)]"></span>
-                    <span class="text-[10px] text-white/60 font-bold uppercase tracking-wider">Online Now</span>
-                </div>
+    <div class="main-content">
+        <!-- FREE CARD -->
+        <div class="api-card">
+            <span style="font-size: 10px; color: #444; letter-spacing: 3px; font-weight: 700;">TIER 01</span>
+            <h2 style="font-size: 32px; font-weight: 900; margin: 15px 0;">FREE</h2>
+            <p style="color: #666; font-size: 14px; line-height: 1.6;">Essential endpoints for starters. High stability, zero cost, no card required.</p>
+            <div class="status-badge">
+                <span class="dot" style="background: #444;"></span> OFFLINE MODE
             </div>
         </div>
 
-        <footer class="mt-20 text-center">
-            <a href="https://dumb-green.vercel.app" class="text-[11px] font-bold text-white/20 hover:text-white transition uppercase tracking-[0.2em]">
-                dumb-green.vercel.app
-            </a>
+        <!-- VIP CARD -->
+        <div class="api-card" style="background: #161618; border-color: #333;">
+            <span style="font-size: 10px; color: #888; letter-spacing: 3px; font-weight: 700;">TIER 02</span>
+            <h2 style="font-size: 32px; font-weight: 900; margin: 15px 0;">VIP</h2>
+            <p style="color: #aaa; font-size: 14px; line-height: 1.6;">Unlimited data throughput with premium 24/7 support. Built for scale.</p>
+            <div class="status-badge" style="color: #aaa;">
+                <span class="dot" style="background: #22c55e; box-shadow: 0 0 10px #22c55e;"></span> ONLINE NOW
+            </div>
+        </div>
+
+        <footer style="margin-top: 40px; text-align: center;">
+            <a href="https://dumb-green.vercel.app" style="font-size: 11px; opacity: 0.3; letter-spacing: 2px;">DUMB-GREEN.VERCEL.APP</a>
         </footer>
     </div>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Simple Fade in
-        gsap.from(".h-main", { y: 30, opacity: 0, duration: 1, ease: "power3.out" });
-        gsap.from(".h-sub", { y: 30, opacity: 0, duration: 1, ease: "power3.out", delay: 0.1 });
-
-        // Card reveal on scroll
-        document.querySelectorAll('.reveal').forEach((card) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 95%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                ease: "power2.out"
-            });
+        // บังคับ Animation ให้เรียบง่ายที่สุดเพื่อกัน UI กระตุกในมือถือ
+        gsap.from(".hero-container span", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out"
         });
     </script>
 </body>
