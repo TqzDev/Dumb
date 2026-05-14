@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>DUMB API</title>
-    <!-- โหลด Tailwind เป็นแค่ตัวช่วย แต่จะใช้ Style หลักคุมอีกชั้น -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Prompt:wght@400;600&display=swap');
         
-        /* 1. RESET ป้องกันสไตล์ยุค 90s */
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background-color: #000000; 
             color: #ffffff; 
             font-family: 'Inter', 'Prompt', sans-serif;
-            -webkit-text-size-adjust: 100%; /* ป้องกัน Browser ขยายตัวอักษรเอง */
+            -webkit-text-size-adjust: 100%;
         }
         a { color: inherit !important; text-decoration: none !important; }
 
-        /* 2. NAVIGATION: แยกซ้ายขวาแบบเด็ดขาด */
+
         .fixed-nav {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -36,9 +36,9 @@
             padding-top: env(safe-area-inset-top);
         }
 
-        /* 3. HERO: ตัวหนังสือต้องไม่ซ้อนกัน */
+
         .hero-container {
-            padding-top: 150px; /* กันโดน Nav ทับ */
+            padding-top: 150px; 
             padding-bottom: 50px;
             text-align: center;
             min-height: 60vh;
@@ -64,10 +64,10 @@
             display: block;
         }
 
-        /* 4. CARDS: แสดงผลครบถ้วน ไม่จิ๋ว */
+
         .main-content {
             padding: 0 20px 80px 20px;
-            max-width: 600px; /* คุมความกว้างในมือถือให้ดูดีเหมือน PC */
+            max-width: 600px; 
             margin: 0 auto;
         }
 
@@ -78,7 +78,7 @@
             padding: 32px;
             margin-bottom: 20px;
             width: 100%;
-            display: block; /* บังคับให้เป็นบล็อกไม่ให้ไหลซ้อนกัน */
+            display: block; 
         }
 
         .status-badge {
@@ -114,27 +114,27 @@
     <div class="hero-container">
         <span class="title-solid">DUMB</span>
         <span class="title-outline">API</span>
-        <p style="margin-top: 30px; opacity: 0.2; font-size: 9px; letter-spacing: 5px;">SCROLL DOWN</p>
+        <p style="margin-top: 30px; opacity: 0.2; font-size: 9px; letter-spacing: 5px;"> </p>
     </div>
 
     <div class="main-content">
         <!-- FREE CARD -->
         <div class="api-card">
-            <span style="font-size: 10px; color: #444; letter-spacing: 3px; font-weight: 700;">TIER 01</span>
+            <span style="font-size: 10px; color: #444; letter-spacing: 3px; font-weight: 700;">01</span>
             <h2 style="font-size: 32px; font-weight: 900; margin: 15px 0;">FREE</h2>
-            <p style="color: #666; font-size: 14px; line-height: 1.6;">Essential endpoints for starters. High stability, zero cost, no card required.</p>
+            <p style="color: #666; font-size: 14px; line-height: 1.6;">Not available</p>
             <div class="status-badge">
-                <span class="dot" style="background: #444;"></span> OFFLINE MODE
+                <span class="dot" style="background: #444;"></span> OFFLINE
             </div>
         </div>
 
         <!-- VIP CARD -->
         <div class="api-card" style="background: #161618; border-color: #333;">
-            <span style="font-size: 10px; color: #888; letter-spacing: 3px; font-weight: 700;">TIER 02</span>
+            <span style="font-size: 10px; color: #888; letter-spacing: 3px; font-weight: 700;">02</span>
             <h2 style="font-size: 32px; font-weight: 900; margin: 15px 0;">VIP</h2>
-            <p style="color: #aaa; font-size: 14px; line-height: 1.6;">Unlimited data throughput with premium 24/7 support. Built for scale.</p>
+            <p style="color: #aaa; font-size: 14px; line-height: 1.6;">Available now</p>
             <div class="status-badge" style="color: #aaa;">
-                <span class="dot" style="background: #22c55e; box-shadow: 0 0 10px #22c55e;"></span> ONLINE NOW
+                <span class="dot" style="background: #22c55e; box-shadow: 0 0 10px #22c55e;"></span> ONLINE
             </div>
         </div>
 
@@ -144,7 +144,7 @@
     </div>
 
     <script>
-        // บังคับ Animation ให้เรียบง่ายที่สุดเพื่อกัน UI กระตุกในมือถือ
+
         gsap.from(".hero-container span", {
             y: 30,
             opacity: 0,
