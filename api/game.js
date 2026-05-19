@@ -1,5 +1,5 @@
 export default function handler(req, res) {
   res.redirect(
-    "https://d-e02.winudf.com/b/XAPK/Y29tLmxpbmVjb3JwLkxHUkdTXzIwMTIxNF9mMTY4MDQyNw?_fn=TElORSBSYW5nZXJzOiBCcm93bi1Db255IFdhcnMhXzEyLjEuMF9BUEtQdXJlLnhhcGs&_p=Y29tLmxpbmVjb3JwLkxHUkdT&download_id=1847908205029016&is_hot=true&k=6d930efcdce98d9cc09a1d90ce84c3016a0c470b&uu=https%3A%2F%2Fd-29.winudf.com%2Fb%2FXAPK%2FY29tLmxpbmVjb3JwLkxHUkdTXzIwMTIxNF9mMTY4MDQyNw%3Fk%3D972bfc5ec75aa3c0a179a244789861d06a0c470b"
+    "https://d-22.winudf.com/b/XAPK/Y29tLmxpbmVjb3JwLkxHUkdTXzIwMTIxN19hMDJhYjI5Ng?_fn=TElORSBSYW5nZXJzOiBCcm93bi1Db255IFdhcnMhXzEyLjEuMV9BUEtQdXJlLnhhcGs&_p=Y29tLmxpbmVjb3JwLkxHUkdT&download_id=1360105488710376&is_hot=false&k=004797f7b7d670e8b4c3c00fe0604f4a6a0d488c&uu=http%3A%2F%2F172.16.73.1%2Fb%2FXAPK%2FY29tLmxpbmVjb3JwLkxHUkdTXzIwMTIxN19hMDJhYjI5Ng%3Fk%3Dcfdb910d1f4f9a4b6b14cd6c59889c976a0d488c"
   );
 }
