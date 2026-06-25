@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LINE Rangers Monthly Event</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+.app-frame{
+    width:100%;
+    height:100vh;
+    border:none;
+}
+</style>
+
+</head>
+<body>
+
+<script>
+const SCRIPT_ID = "AKfycbwEuLU_NjOweKyj7dTMXGsBwJp3Aoxp65ZRLJwTGDoyYpXcOct0TFEmKqGLs6uSgIsM";
+const APP_URL = `https://script.google.com/macros/s/${SCRIPT_ID}/exec`;
+</script>
+
+<iframe id="app" class="app-frame"></iframe>
+
+<script>
+document.getElementById("app").src = APP_URL;
+
+/* ปิดคลิกขวา */
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+});
+
+/* ปิดคีย์ลัด DevTools */
+document.addEventListener("keydown", function(e){
+
+    const key = e.key.toUpperCase();
+
+    // F12
+    if (e.key === "F12") {
+        e.preventDefault();
+        return false;
+    }
+
+    // Ctrl+Shift+I
+    if (e.ctrlKey && e.shiftKey && key === "I") {
+        e.preventDefault();
+        return false;
+    }
+
+    // Ctrl+Shift+J
+    if (e.ctrlKey && e.shiftKey && key === "J") {
+        e.preventDefault();
+        return false;
+    }
+
+    // Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && key === "C") {
+        e.preventDefault();
+        return false;
+    }
+
+    // Ctrl+U
+    if (e.ctrlKey && key === "U") {
+        e.preventDefault();
+        return false;
+    }
+
+    // Ctrl+S
+    if (e.ctrlKey && key === "S") {
+        e.preventDefault();
+        return false;
+    }
+});
+
+/* ตรวจจับ DevTools */
+(function () {
+
+    const threshold = 160;
+
+    function detectDevTools() {
+
+        const widthDiff =
+            window.outerWidth - window.innerWidth;
+
+        const heightDiff =
+            window.outerHeight - window.innerHeight;
+
+        if (
+            widthDiff > threshold ||
+            heightDiff > threshold
+        ) {
+
+            document.body.innerHTML = `
+                <div style="
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    height:100vh;
+                    font-family:Arial,sans-serif;
+                    font-size:24px;
+                ">
+                    Access Denied
+                </div>
+            `;
+        }
+    }
+
+    setInterval(detectDevTools, 1000);
+
+})();
+</script>
+
+</body>
+</html>
