@@ -1,101 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>LINE Rangers Monthly Event</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-html, body{
-    margin:0;
-    padding:0;
-    height:100%;
-}
-
-.app-frame{
-    width:100%;
-    height:100vh;
-    border:none;
-}
-</style>
-
-</head>
-<body>
-
-<script>
-const SCRIPT_ID = "AKfycbwEuLU_NjOweKyj7dTMXGsBwJp3Aoxp65ZRLJwTGDoyYpXcOct0TFEmKqGLs6uSgIsM";
-const APP_URL = `https://script.google.com/macros/s/${SCRIPT_ID}/exec`;
-</script>
-
-<iframe id="app" class="app-frame"></iframe>
-
 <script>
 document.getElementById("app").src = APP_URL;
 
 /* ปิดคลิกขวา */
-document.addEventListener("contextmenu", function(e){
+document.addEventListener("contextmenu", e => {
     e.preventDefault();
+    return false;
 });
 
-/* ปิดคีย์ลัด DevTools */
-document.addEventListener("keydown", function(e){
+/* ปิดการเลือกข้อความ */
+document.onselectstart = () => false;
+document.ondragstart = () => false;
+
+/* ดักทุกคีย์ */
+function blockDevTools(e) {
+
+    if (e.key === "F12") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+    }
 
     const key = e.key.toUpperCase();
 
-    // F12
-    if (e.key === "F12") {
+    if (
+        (e.ctrlKey && e.shiftKey && ["I","J","C","K"].includes(key)) ||
+        (e.ctrlKey && ["U","S"].includes(key))
+    ) {
         e.preventDefault();
+        e.stopImmediatePropagation();
         return false;
     }
+}
 
-    // Ctrl+Shift+I
-    if (e.ctrlKey && e.shiftKey && key === "I") {
-        e.preventDefault();
-        return false;
-    }
-
-    // Ctrl+Shift+J
-    if (e.ctrlKey && e.shiftKey && key === "J") {
-        e.preventDefault();
-        return false;
-    }
-
-    // Ctrl+Shift+C
-    if (e.ctrlKey && e.shiftKey && key === "C") {
-        e.preventDefault();
-        return false;
-    }
-
-    // Ctrl+U
-    if (e.ctrlKey && key === "U") {
-        e.preventDefault();
-        return false;
-    }
-
-    // Ctrl+S
-    if (e.ctrlKey && key === "S") {
-        e.preventDefault();
-        return false;
-    }
-});
+window.addEventListener("keydown", blockDevTools, true);
+document.addEventListener("keydown", blockDevTools, true);
 
 /* ตรวจจับ DevTools */
-(function () {
+let devtoolsOpened = false;
 
-    const threshold = 160;
+setInterval(() => {
 
-    function detectDevTools() {
+    const widthThreshold = window.outerWidth - window.innerWidth > 120;
+    const heightThreshold = window.outerHeight - window.innerHeight > 120;
 
-        const widthDiff =
-            window.outerWidth - window.innerWidth;
+    if (widthThreshold || heightThreshold) {
 
-        const heightDiff =
-            window.outerHeight - window.innerHeight;
-
-        if (
-            widthDiff > threshold ||
-            heightDiff > threshold
-        ) {
+        if (!devtoolsOpened) {
+            devtoolsOpened = true;
 
             document.body.innerHTML = `
                 <div style="
@@ -103,19 +54,20 @@ document.addEventListener("keydown", function(e){
                     justify-content:center;
                     align-items:center;
                     height:100vh;
-                    font-family:Arial,sans-serif;
-                    font-size:24px;
+                    font-family:Arial;
+                    font-size:30px;
+                    font-weight:bold;
                 ">
-                    Access Denied
+                    ACCESS DENIED
                 </div>
             `;
         }
     }
 
-    setInterval(detectDevTools, 1000);
+}, 100);
 
-})();
+/* debugger trick */
+setInterval(() => {
+    debugger;
+}, 50);
 </script>
-
-</body>
-</html>
